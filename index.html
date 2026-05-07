@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#1D2951">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#1D2951" id="meta-theme-color">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="SAFE Hub">
@@ -19,446 +19,187 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --navy: #1D2951;
-    --navy-deep: #141d3a;
-    --navy-card: rgba(255,255,255,0.06);
-    --blue: #5BAEE2;
-    --teal: #60C0BF;
-    --white: #ffffff;
-    --muted: rgba(255,255,255,0.5);
-    --border: rgba(255,255,255,0.1);
-    --border-hover: rgba(91,174,226,0.35);
-    --error: #f87171;
-    --success: #4ade80;
+    --blue:       #5BAEE2;
+    --teal:       #60C0BF;
+    --bg-body:    #141d3a;
+    --bg-card:    rgba(255,255,255,0.05);
+    --bg-input:   rgba(255,255,255,0.06);
+    --navy-card:  rgba(255,255,255,0.06);
+    --text-main:  #ffffff;
+    --text-sub:   rgba(255,255,255,0.5);
+    --border:     rgba(255,255,255,0.1);
+    --border-h:   rgba(91,174,226,0.35);
+    --error:      #f87171;
+    --blob-op:    0.15;
+    --btn-sec-bg: rgba(255,255,255,0.06);
+    --btn-sec-c:  rgba(255,255,255,0.5);
+  }
+
+  [data-theme="light"] {
+    --bg-body:    #e8edf5;
+    --bg-card:    rgba(255,255,255,0.85);
+    --bg-input:   rgba(255,255,255,0.9);
+    --navy-card:  rgba(255,255,255,0.7);
+    --text-main:  #1D2951;
+    --text-sub:   rgba(29,41,81,0.55);
+    --border:     rgba(29,41,81,0.12);
+    --border-h:   rgba(91,174,226,0.5);
+    --blob-op:    0.22;
+    --btn-sec-bg: rgba(29,41,81,0.06);
+    --btn-sec-c:  rgba(29,41,81,0.5);
   }
 
   body {
     font-family: 'Montserrat', sans-serif;
-    background: var(--navy-deep);
-    color: var(--white);
-    min-height: 100vh;
+    background: var(--bg-body);
+    color: var(--text-main);
+    min-height: 100vh; min-height: 100dvh;
     overflow-x: hidden;
+    transition: background 0.3s, color 0.3s;
+    -webkit-text-size-adjust: 100%;
   }
 
-  /* ── BACKGROUND ── */
-  .bg {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-  .bg-blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(90px);
-    opacity: 0.15;
-  }
-  .bg-blob-1 { width: 700px; height: 700px; background: var(--blue);  top: -250px; right: -150px; }
+  .bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .bg-blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: var(--blob-op); transition: opacity 0.3s; }
+  .bg-blob-1 { width: 700px; height: 700px; background: var(--blue); top: -250px; right: -150px; }
   .bg-blob-2 { width: 500px; height: 500px; background: var(--teal); bottom: -150px; left: -100px; }
-  .bg-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      repeating-linear-gradient(-30deg,
-        transparent, transparent 40px,
-        rgba(91,174,226,0.03) 40px, rgba(91,174,226,0.03) 41px);
-  }
+  .bg-grid { position: absolute; inset: 0; background-image: repeating-linear-gradient(-30deg, transparent, transparent 40px, rgba(91,174,226,0.03) 40px, rgba(91,174,226,0.03) 41px); }
 
-  /* ── SCREENS ── */
-  .screen {
-    position: relative;
-    z-index: 1;
-    display: none;
-    min-height: 100vh;
+  .btn-theme {
+    background: var(--btn-sec-bg); border: 0.5px solid var(--border);
+    border-radius: 50%; width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 15px;
+    transition: border-color 0.2s; flex-shrink: 0;
   }
+  .btn-theme:hover { border-color: var(--border-h); }
+
+  .btn-install {
+    align-items: center; gap: 6px;
+    background: rgba(91,174,226,0.12); border: 0.5px solid rgba(91,174,226,0.3);
+    border-radius: 8px; padding: 7px 13px;
+    font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600;
+    color: var(--blue); cursor: pointer; transition: background 0.2s;
+    display: none;
+  }
+  .btn-install:hover { background: rgba(91,174,226,0.2); }
+
+  .screen { position: relative; z-index: 1; display: none; min-height: 100vh; min-height: 100dvh; }
   .screen.active { display: flex; }
 
-  /* ── LOGIN SCREEN ── */
-  #screen-login {
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-  }
+  /* LOGIN */
+  #screen-login { align-items: center; justify-content: center; padding: 24px; }
+  .login-box { width: 100%; max-width: 420px; }
 
-  .login-box {
-    width: 100%;
-    max-width: 420px;
-  }
+  .login-logo { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 32px; text-align: center; }
+  .login-logo-img { width: 100px; height: 100px; border-radius: 24px; object-fit: cover; border: 1.5px solid rgba(91,174,226,0.2); }
+  .login-logo h1 { font-family: 'Raleway', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 0.03em; color: var(--text-main); }
+  .login-logo p { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); }
 
-  .login-logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 40px;
-    text-align: center;
-  }
+  .login-card { background: var(--bg-card); border: 0.5px solid var(--border); border-radius: 20px; padding: 30px; backdrop-filter: blur(10px); }
+  .login-card h2 { font-family: 'Raleway', sans-serif; font-size: 17px; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
+  .login-card .subtitle { font-size: 13px; color: var(--text-sub); margin-bottom: 24px; }
 
-  .login-logo-icon {
-    width: 72px;
-    height: 72px;
-    border-radius: 20px;
-    background: var(--navy);
-    border: 1.5px solid rgba(91,174,226,0.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .login-logo-icon svg { width: 52px; height: 52px; }
-
-  .login-logo h1 {
-    font-family: 'Raleway', sans-serif;
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: 0.03em;
-  }
-
-  .login-logo p {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--teal);
-  }
-
-  .login-card {
-    background: rgba(255,255,255,0.05);
-    border: 0.5px solid var(--border);
-    border-radius: 20px;
-    padding: 32px;
-  }
-
-  .login-card h2 {
-    font-family: 'Raleway', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-
-  .login-card .subtitle {
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 28px;
-  }
-
-  .field {
-    margin-bottom: 16px;
-  }
-
-  .field label {
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 8px;
-  }
-
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-sub); margin-bottom: 7px; }
   .field input {
-    width: 100%;
-    background: rgba(255,255,255,0.06);
-    border: 0.5px solid var(--border);
-    border-radius: 10px;
-    padding: 13px 16px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    color: var(--white);
-    outline: none;
-    transition: border-color 0.2s, background 0.2s;
+    width: 100%; background: var(--bg-input); border: 0.5px solid var(--border);
+    border-radius: 10px; padding: 13px 16px;
+    font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--text-main);
+    outline: none; transition: border-color 0.2s, background 0.2s; -webkit-appearance: none;
   }
-
-  .field input::placeholder { color: rgba(255,255,255,0.25); }
-
-  .field input:focus {
-    border-color: var(--blue);
-    background: rgba(91,174,226,0.08);
-  }
+  .field input::placeholder { color: var(--text-sub); }
+  .field input:focus { border-color: var(--blue); background: rgba(91,174,226,0.08); }
 
   .btn-login {
-    width: 100%;
-    margin-top: 8px;
-    padding: 14px;
+    width: 100%; margin-top: 8px; padding: 14px;
     background: linear-gradient(135deg, var(--blue), var(--teal));
-    border: none;
-    border-radius: 10px;
-    font-family: 'Raleway', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--white);
-    cursor: pointer;
-    transition: opacity 0.2s, transform 0.15s;
-    letter-spacing: 0.03em;
+    border: none; border-radius: 10px;
+    font-family: 'Raleway', sans-serif; font-size: 15px; font-weight: 700;
+    color: #ffffff; cursor: pointer; transition: opacity 0.2s, transform 0.15s;
+    letter-spacing: 0.03em; -webkit-appearance: none;
   }
-
   .btn-login:hover { opacity: 0.9; transform: translateY(-1px); }
   .btn-login:active { transform: translateY(0); }
   .btn-login:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-  .login-error {
-    margin-top: 14px;
-    padding: 10px 14px;
-    background: rgba(248,113,113,0.1);
-    border: 0.5px solid rgba(248,113,113,0.3);
-    border-radius: 8px;
-    font-size: 13px;
-    color: var(--error);
-    display: none;
-    text-align: center;
-  }
-
+  .login-error { margin-top: 12px; padding: 10px 14px; background: rgba(248,113,113,0.1); border: 0.5px solid rgba(248,113,113,0.3); border-radius: 8px; font-size: 13px; color: var(--error); display: none; text-align: center; }
   .login-error.show { display: block; }
 
-  /* ── HUB SCREEN ── */
-  #screen-hub {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 0 24px 60px;
-  }
+  .login-footer { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 18px; }
+  .login-footer span { font-size: 12px; color: var(--text-sub); }
+
+  /* HUB */
+  #screen-hub { flex-direction: column; align-items: stretch; padding: 0 24px 60px; }
 
   header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 28px 0 32px;
-    border-bottom: 0.5px solid var(--border);
-    margin-bottom: 36px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 0 26px; border-bottom: 0.5px solid var(--border);
+    margin-bottom: 30px; gap: 12px; flex-wrap: wrap;
   }
 
-  .header-logo {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
+  .header-logo { display: flex; align-items: center; gap: 12px; }
+  .header-logo-icon { width: 40px; height: 40px; border-radius: 11px; overflow: hidden; flex-shrink: 0; border: 1px solid rgba(91,174,226,0.2); }
+  .header-logo-icon img { width: 100%; height: 100%; object-fit: cover; }
+  .header-logo-text h1 { font-family: 'Raleway', sans-serif; font-size: 17px; font-weight: 800; letter-spacing: 0.04em; line-height: 1; color: var(--text-main); }
+  .header-logo-text span { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); }
 
-  .header-logo-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    background: var(--navy);
-    border: 1px solid rgba(91,174,226,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  .header-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
-  .header-logo-icon svg { width: 32px; height: 32px; }
+  .user-badge { display: flex; align-items: center; gap: 8px; }
+  .user-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--teal)); display: flex; align-items: center; justify-content: center; font-family: 'Raleway', sans-serif; font-size: 12px; font-weight: 700; color: #ffffff; flex-shrink: 0; }
+  .user-name { font-size: 13px; font-weight: 500; color: var(--text-main); }
 
-  .header-logo-text h1 {
-    font-family: 'Raleway', sans-serif;
-    font-size: 18px;
-    font-weight: 800;
-    letter-spacing: 0.04em;
-    line-height: 1;
-  }
+  .btn-logout { background: var(--btn-sec-bg); border: 0.5px solid var(--border); border-radius: 8px; padding: 7px 13px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600; color: var(--btn-sec-c); cursor: pointer; transition: color 0.2s, border-color 0.2s; }
+  .btn-logout:hover { color: var(--text-main); border-color: var(--border-h); }
 
-  .header-logo-text span {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--teal);
-  }
+  .hub-content { max-width: 860px; margin: 0 auto; width: 100%; }
 
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
+  .section-eyebrow { font-family: 'Raleway', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--teal); margin-bottom: 8px; }
+  .section-heading { font-family: 'Raleway', sans-serif; font-size: 24px; font-weight: 800; margin-bottom: 4px; line-height: 1.1; color: var(--text-main); }
+  .section-sub { font-size: 13px; color: var(--text-sub); margin-bottom: 24px; }
 
-  .user-badge {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .user-avatar {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--blue), var(--teal));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Raleway', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-  }
-
-  .user-name {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--white);
-  }
-
-  .btn-logout {
-    background: rgba(255,255,255,0.06);
-    border: 0.5px solid var(--border);
-    border-radius: 8px;
-    padding: 7px 14px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--muted);
-    cursor: pointer;
-    transition: color 0.2s, border-color 0.2s;
-  }
-
-  .btn-logout:hover { color: var(--white); border-color: var(--border-hover); }
-
-  .hub-content {
-    max-width: 860px;
-    margin: 0 auto;
-    width: 100%;
-  }
-
-  .section-eyebrow {
-    font-family: 'Raleway', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 10px;
-  }
-
-  .section-heading {
-    font-family: 'Raleway', sans-serif;
-    font-size: 26px;
-    font-weight: 800;
-    margin-bottom: 6px;
-    line-height: 1.1;
-  }
-
-  .section-sub {
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 28px;
-  }
-
-  .tools-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-    margin-bottom: 40px;
-  }
+  .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 40px; }
 
   .tool-card {
-    background: var(--navy-card);
-    border: 0.5px solid var(--border);
-    border-radius: 18px;
-    padding: 22px;
-    cursor: pointer;
+    background: var(--navy-card); border: 0.5px solid var(--border);
+    border-radius: 18px; padding: 22px; cursor: pointer;
     transition: background 0.2s, border-color 0.2s, transform 0.15s;
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    position: relative;
-    overflow: hidden;
+    text-decoration: none; color: inherit; display: block;
+    position: relative; overflow: hidden;
     animation: fadeUp 0.4s ease both;
   }
-
   .tool-card:nth-child(1) { animation-delay: 0.05s; }
   .tool-card:nth-child(2) { animation-delay: 0.10s; }
   .tool-card:nth-child(3) { animation-delay: 0.15s; }
   .tool-card:nth-child(4) { animation-delay: 0.20s; }
-
-  .tool-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--blue), var(--teal));
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-
-  .tool-card:hover { background: rgba(255,255,255,0.1); border-color: var(--border-hover); transform: translateY(-2px); }
+  .tool-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--blue), var(--teal)); opacity: 0; transition: opacity 0.2s; }
+  .tool-card:hover { background: rgba(91,174,226,0.08); border-color: var(--border-h); transform: translateY(-2px); }
   .tool-card:hover::before { opacity: 1; }
 
-  .tool-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 11px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    margin-bottom: 14px;
-  }
-
+  .tool-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 19px; margin-bottom: 12px; }
   .ic-blue   { background: rgba(91,174,226,0.15); }
   .ic-teal   { background: rgba(96,192,191,0.15); }
-  .ic-soft   { background: rgba(255,255,255,0.08); }
+  .ic-soft   { background: rgba(128,128,128,0.15); }
   .ic-purple { background: rgba(160,120,220,0.15); }
 
-  .tool-name {
-    font-family: 'Raleway', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-
-  .tool-desc {
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.55;
-    margin-bottom: 14px;
-  }
-
-  .tool-foot {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .tool-tag {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 6px;
-    background: rgba(96,192,191,0.12);
-    color: var(--teal);
-  }
-
-  .tool-arrow {
-    font-size: 16px;
-    color: var(--muted);
-    transition: color 0.2s, transform 0.2s;
-  }
-
+  .tool-name { font-family: 'Raleway', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 5px; color: var(--text-main); }
+  .tool-desc { font-size: 12px; color: var(--text-sub); line-height: 1.55; margin-bottom: 14px; }
+  .tool-foot { display: flex; align-items: center; justify-content: space-between; }
+  .tool-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; background: rgba(96,192,191,0.12); color: var(--teal); }
+  .tool-arrow { font-size: 15px; color: var(--text-sub); transition: color 0.2s, transform 0.2s; }
   .tool-card:hover .tool-arrow { color: var(--blue); transform: translateX(4px); }
 
-  .clock-widget {
-    text-align: right;
-  }
+  .clock-widget { text-align: right; }
+  .clock-time { font-family: 'Raleway', sans-serif; font-size: 19px; font-weight: 700; line-height: 1; color: var(--text-main); }
+  .clock-date { font-size: 11px; color: var(--text-sub); margin-top: 2px; }
 
-  .clock-time {
-    font-family: 'Raleway', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 1;
-  }
-
-  .clock-date {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 2px;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
   @media (max-width: 560px) {
     .tools-grid { grid-template-columns: 1fr; }
     .user-name { display: none; }
-    header { gap: 12px; flex-wrap: wrap; }
+    .clock-widget { display: none; }
   }
 </style>
 </head>
@@ -470,72 +211,54 @@
   <div class="bg-grid"></div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     TELA DE LOGIN
-═══════════════════════════════════════ -->
+<!-- LOGIN -->
 <div id="screen-login" class="screen active">
   <div class="login-box">
     <div class="login-logo">
-      <div class="login-logo-icon">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="50" r="50" fill="#1D2951"/>
-          <path d="M62 22 C75 30,78 48,65 56 C58 60,50 58,44 62 C32 70,30 86,40 92"
-                stroke="#5BAEE2" stroke-width="9" stroke-linecap="round" fill="none"/>
-          <path d="M38 78 C25 70,22 52,35 44 C42 40,50 42,56 38 C68 30,70 14,60 8"
-                stroke="#60C0BF" stroke-width="9" stroke-linecap="round" fill="none"/>
-        </svg>
-      </div>
+      <img class="login-logo-img" src="icon-512.png" alt="SAFE Hub">
       <h1>SAFE Hub</h1>
       <p>Escola de Aviação · Operações</p>
     </div>
-
     <div class="login-card">
       <h2>Acesso restrito</h2>
       <p class="subtitle">Entre com suas credenciais de acesso operacional</p>
-
       <div class="field">
         <label>E-mail</label>
         <input type="email" id="inp-email" placeholder="seu@email.com" autocomplete="username">
       </div>
-
       <div class="field">
         <label>Senha</label>
         <input type="password" id="inp-password" placeholder="••••••••" autocomplete="current-password">
       </div>
-
       <button class="btn-login" id="btn-login" onclick="doLogin()">Entrar</button>
-
-      <div class="login-error" id="login-error">E-mail ou senha incorretos.</div>
+      <div class="login-error" id="login-error"></div>
+    </div>
+    <div class="login-footer">
+      <span>Tema</span>
+      <button class="btn-theme" id="btn-theme-login" onclick="toggleTheme()" title="Alternar tema">🌙</button>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     TELA DO HUB
-═══════════════════════════════════════ -->
+<!-- HUB -->
 <div id="screen-hub" class="screen">
   <header>
     <div class="header-logo">
       <div class="header-logo-icon">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="50" r="50" fill="#1D2951"/>
-          <path d="M62 22 C75 30,78 48,65 56 C58 60,50 58,44 62 C32 70,30 86,40 92"
-                stroke="#5BAEE2" stroke-width="9" stroke-linecap="round" fill="none"/>
-          <path d="M38 78 C25 70,22 52,35 44 C42 40,50 42,56 38 C68 30,70 14,60 8"
-                stroke="#60C0BF" stroke-width="9" stroke-linecap="round" fill="none"/>
-        </svg>
+        <img src="icon-192.png" alt="SAFE">
       </div>
       <div class="header-logo-text">
         <h1>SAFE Hub</h1>
         <span>Centro de Controle de Operações</span>
       </div>
     </div>
-
     <div class="header-right">
       <div class="clock-widget">
         <div class="clock-time" id="clock">--:--</div>
         <div class="clock-date" id="clock-date">São José dos Campos</div>
       </div>
+      <button class="btn-install" id="btn-install" onclick="installPWA()">⬇ Instalar app</button>
+      <button class="btn-theme" id="btn-theme-hub" onclick="toggleTheme()" title="Alternar tema">🌙</button>
       <div class="user-badge">
         <div class="user-avatar" id="user-avatar">??</div>
         <span class="user-name" id="user-name-display">Usuário</span>
@@ -548,125 +271,124 @@
     <div class="section-eyebrow">Ferramentas Operacionais</div>
     <div class="section-heading">Painel CCO</div>
     <p class="section-sub">Acesso centralizado a todas as ferramentas da operação SAFE</p>
-
     <div class="tools-grid">
       <a class="tool-card" href="https://cco.voesafe.com.br" target="_blank" rel="noopener">
         <div class="tool-icon ic-blue">🤖</div>
         <div class="tool-name">CCO Inteligente</div>
         <div class="tool-desc">Assistente operacional com IA para suporte ao Centro de Controle de Operações</div>
-        <div class="tool-foot">
-          <span class="tool-tag">IA · CCO</span>
-          <span class="tool-arrow">→</span>
-        </div>
+        <div class="tool-foot"><span class="tool-tag">IA · CCO</span><span class="tool-arrow">→</span></div>
       </a>
-
       <a class="tool-card" href="https://cco-safe-amber.vercel.app/" target="_blank" rel="noopener">
         <div class="tool-icon ic-teal">📅</div>
         <div class="tool-name">Escala CCO</div>
         <div class="tool-desc">Gerenciamento de escalas e turnos dos colaboradores do CCO</div>
-        <div class="tool-foot">
-          <span class="tool-tag">Escala · Staff</span>
-          <span class="tool-arrow">→</span>
-        </div>
+        <div class="tool-foot"><span class="tool-tag">Escala · Staff</span><span class="tool-arrow">→</span></div>
       </a>
-
       <a class="tool-card" href="https://pavescala.voesafe.com.br/" target="_blank" rel="noopener">
         <div class="tool-icon ic-soft">✈️</div>
         <div class="tool-name">Escala PAV de Base</div>
         <div class="tool-desc">Controle da programação de aeronaves e instrutores por base operacional</div>
-        <div class="tool-foot">
-          <span class="tool-tag">Voo · PAV</span>
-          <span class="tool-arrow">→</span>
-        </div>
+        <div class="tool-foot"><span class="tool-tag">Voo · PAV</span><span class="tool-arrow">→</span></div>
       </a>
-
       <a class="tool-card" href="https://voesafe.github.io/cco-dashboard-fechamento-horas/" target="_blank" rel="noopener">
         <div class="tool-icon ic-purple">📊</div>
         <div class="tool-name">Dashboard Fechamento</div>
         <div class="tool-desc">Visualização e fechamento de horas voadas por período e aeronave</div>
-        <div class="tool-foot">
-          <span class="tool-tag">Relatório · Horas</span>
-          <span class="tool-arrow">→</span>
-        </div>
+        <div class="tool-foot"><span class="tool-tag">Relatório · Horas</span><span class="tool-arrow">→</span></div>
       </a>
     </div>
   </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════════
-// CONFIGURAÇÃO — substitua a URL abaixo pela do seu Sheets
-// ═══════════════════════════════════════════════════════════
-// Como obter a URL:
-// 1. Abra a planilha no Google Sheets
-// 2. Arquivo → Compartilhar → Publicar na web
-// 3. Selecione a aba "Usuários" e formato "Valores separados por vírgula (.csv)"
-// 4. Clique em Publicar e copie o link gerado
 const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTgMwdICI_UAo5GTGKMi14GOmWj08di2ZSbMpZUfARTwctR6wurzUPlYQ3N41eVjczJlrU9YJNADyHc/pub?gid=0&single=true&output=csv';
 
-// ═══════════════════════════════════════════════════════════
+// TEMA
+function getSystemTheme() { return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
 
+function applyTheme(theme) {
+  if (theme === 'light') document.documentElement.setAttribute('data-theme', 'light');
+  else document.documentElement.removeAttribute('data-theme');
+  const icon = theme === 'dark' ? '🌙' : '☀️';
+  document.querySelectorAll('.btn-theme').forEach(b => b.textContent = icon);
+  const mc = document.getElementById('meta-theme-color');
+  if (mc) mc.setAttribute('content', theme === 'dark' ? '#1D2951' : '#e8edf5');
+  localStorage.setItem('safe_theme', theme);
+}
+
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  applyTheme(cur === 'dark' ? 'light' : 'dark');
+}
+
+(function() {
+  const saved = localStorage.getItem('safe_theme');
+  applyTheme(saved || getSystemTheme());
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!localStorage.getItem('safe_theme')) applyTheme(e.matches ? 'dark' : 'light');
+  });
+})();
+
+// PWA INSTALL
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const btn = document.getElementById('btn-install');
+  if (btn) btn.style.display = 'flex';
+});
+function installPWA() {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(() => {
+    deferredPrompt = null;
+    const btn = document.getElementById('btn-install');
+    if (btn) btn.style.display = 'none';
+  });
+}
+window.addEventListener('appinstalled', () => {
+  const btn = document.getElementById('btn-install');
+  if (btn) btn.style.display = 'none';
+});
+
+// AUTH
 async function fetchUsers() {
   try {
     const res = await fetch(SHEET_CSV_URL + '&t=' + Date.now());
     const text = await res.text();
-    const rows = text.trim().split('\n').slice(1); // pula cabeçalho
-    return rows.map(row => {
+    return text.trim().split('\n').slice(1).map(row => {
       const cols = row.split(',');
-      return {
-        email:  (cols[0] || '').trim().toLowerCase(),
-        senha:  (cols[1] || '').trim(),
-        nome:   (cols[2] || '').trim(),
-        ativo:  (cols[3] || '').trim().toUpperCase() === 'SIM'
-      };
+      return { email: (cols[0]||'').trim().toLowerCase(), senha: (cols[1]||'').trim(), nome: (cols[2]||'').trim(), ativo: (cols[3]||'').trim().toUpperCase() === 'SIM' };
     });
-  } catch (e) {
-    return null;
-  }
+  } catch(e) { return null; }
 }
 
 async function doLogin() {
-  const email    = document.getElementById('inp-email').value.trim().toLowerCase();
-  const senha    = document.getElementById('inp-password').value.trim();
-  const btn      = document.getElementById('btn-login');
-  const errBox   = document.getElementById('login-error');
-
+  const email = document.getElementById('inp-email').value.trim().toLowerCase();
+  const senha = document.getElementById('inp-password').value.trim();
+  const btn = document.getElementById('btn-login');
+  const errBox = document.getElementById('login-error');
   errBox.classList.remove('show');
-  btn.disabled = true;
-  btn.textContent = 'Verificando...';
-
+  btn.disabled = true; btn.textContent = 'Verificando...';
   const users = await fetchUsers();
-
   if (!users) {
     errBox.textContent = 'Não foi possível verificar o acesso. Tente novamente.';
-    errBox.classList.add('show');
-    btn.disabled = false;
-    btn.textContent = 'Entrar';
-    return;
+    errBox.classList.add('show'); btn.disabled = false; btn.textContent = 'Entrar'; return;
   }
-
   const user = users.find(u => u.email === email && u.senha === senha && u.ativo);
-
   if (user) {
-    // Salva sessão simples
     sessionStorage.setItem('safe_user', JSON.stringify({ email: user.email, nome: user.nome }));
     showHub(user);
   } else {
     errBox.textContent = 'E-mail ou senha incorretos, ou acesso inativo.';
-    errBox.classList.add('show');
-    btn.disabled = false;
-    btn.textContent = 'Entrar';
+    errBox.classList.add('show'); btn.disabled = false; btn.textContent = 'Entrar';
   }
 }
 
 function showHub(user) {
   document.getElementById('screen-login').classList.remove('active');
   document.getElementById('screen-hub').classList.add('active');
-
-  const iniciais = user.nome
-    ? user.nome.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase()
-    : user.email.substring(0, 2).toUpperCase();
-
+  const iniciais = user.nome ? user.nome.split(' ').map(n => n[0]).slice(0,2).join('').toUpperCase() : user.email.substring(0,2).toUpperCase();
   document.getElementById('user-avatar').textContent = iniciais;
   document.getElementById('user-name-display').textContent = user.nome || user.email;
 }
@@ -681,39 +403,25 @@ function doLogout() {
   document.getElementById('btn-login').textContent = 'Entrar';
 }
 
-// Manter sessão ao recarregar
 function checkSession() {
   const saved = sessionStorage.getItem('safe_user');
-  if (saved) {
-    try {
-      const user = JSON.parse(saved);
-      showHub(user);
-    } catch(e) {
-      sessionStorage.removeItem('safe_user');
-    }
-  }
+  if (saved) { try { showHub(JSON.parse(saved)); } catch(e) { sessionStorage.removeItem('safe_user'); } }
 }
 
-// Enter no campo de senha faz login
-document.getElementById('inp-password').addEventListener('keydown', e => {
-  if (e.key === 'Enter') doLogin();
-});
-document.getElementById('inp-email').addEventListener('keydown', e => {
-  if (e.key === 'Enter') document.getElementById('inp-password').focus();
-});
-
-// Relógio
+// RELÓGIO
 function updateClock() {
   const now = new Date();
-  const t = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' });
-  const d = now.toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: 'short', timeZone: 'America/Sao_Paulo' });
   const ce = document.getElementById('clock');
   const de = document.getElementById('clock-date');
-  if (ce) ce.textContent = t;
-  if (de) de.textContent = d;
+  if (ce) ce.textContent = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' });
+  if (de) de.textContent = now.toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: 'short', timeZone: 'America/Sao_Paulo' });
 }
-updateClock();
-setInterval(updateClock, 30000);
+updateClock(); setInterval(updateClock, 30000);
+
+document.getElementById('inp-password').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+document.getElementById('inp-email').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('inp-password').focus(); });
+
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js').catch(() => {});
 
 checkSession();
 </script>
