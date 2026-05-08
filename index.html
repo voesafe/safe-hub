@@ -66,16 +66,25 @@
 
   /* BG */
   .bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  /* ══ MARCA D'ÁGUA — altere os valores abaixo (0 a 100) ══
+     --frota-opacity-dark:  opacidade no modo escuro
+     --frota-opacity-light: opacidade no modo claro       */
+  :root {
+    --frota-opacity-dark:  7;   /* 0 = invisível, 100 = imagem completa */
+    --frota-opacity-light: 10;
+  }
   .bg-frota {
     position: absolute; inset: 0;
     background-image: url('img/frota-bg.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0;
+    opacity: calc(var(--frota-opacity-dark) / 100);
     transition: opacity 0.3s;
   }
-  [data-theme="light"] .bg-frota { opacity: 0.10; }
+  [data-theme="light"] .bg-frota {
+    opacity: calc(var(--frota-opacity-light) / 100);
+  }
   .bg-frota::after {
     content: ''; position: absolute; inset: 0;
     background: linear-gradient(180deg, rgba(20,29,58,0.4) 0%, rgba(20,29,58,0.1) 50%, rgba(20,29,58,0.4) 100%);
@@ -419,7 +428,7 @@
     <!-- PAINEL PRINCIPAL -->
     <div class="panel active" id="panel-main">
       <div class="section-eyebrow">Ferramentas Operacionais</div>
-      <div class="section-heading">Painel SAFE</div>
+      <div class="section-heading">Painel CCO</div>
       <p class="section-sub">Acesso centralizado a todas as ferramentas da operação SAFE</p>
       <div class="tools-grid">
         <a class="tool-card" href="https://cco.voesafe.com.br" target="_blank" rel="noopener">
