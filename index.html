@@ -172,34 +172,60 @@
   .clock-time { font-family: 'Raleway', sans-serif; font-size: 19px; font-weight: 700; line-height: 1; color: var(--text-main); }
   .clock-date { font-size: 11px; color: var(--text-sub); margin-top: 2px; }
 
+  /* HAMBURGUER — só mobile */
   .btn-hamburger { display: none; }
+
+  /* DESKTOP actions */
   .desktop-actions { display: flex; align-items: center; gap: 10px; }
 
   /* ══ DRAWER MOBILE ══ */
-  .drawer-overlay { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
+  .drawer-overlay {
+    display: none; position: fixed; inset: 0; z-index: 100;
+    background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+  }
   .drawer-overlay.open { display: block; }
 
-  .drawer { position: fixed; top: 0; right: -320px; bottom: 0; width: 300px; z-index: 101; background: var(--drawer-bg); padding: 0; transition: right 0.3s cubic-bezier(.4,0,.2,1); display: flex; flex-direction: column; }
+  .drawer {
+    position: fixed; top: 0; right: -320px; bottom: 0; width: 300px; z-index: 101;
+    background: var(--drawer-bg); padding: 0;
+    transition: right 0.3s cubic-bezier(.4,0,.2,1);
+    display: flex; flex-direction: column;
+  }
   .drawer.open { right: 0; }
 
-  .drawer-header { padding: calc(20px + var(--safe-top)) 20px 20px; border-bottom: 0.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .drawer-header {
+    padding: calc(20px + var(--safe-top)) 20px 20px;
+    border-bottom: 0.5px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
   .drawer-user { display: flex; align-items: center; gap: 12px; }
   .drawer-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--teal)); display: flex; align-items: center; justify-content: center; font-family: 'Raleway', sans-serif; font-size: 16px; font-weight: 700; color: #ffffff; flex-shrink: 0; }
   .drawer-user-name { font-family: 'Raleway', sans-serif; font-size: 15px; font-weight: 700; color: var(--text-main); }
   .drawer-user-email { font-size: 11px; color: var(--text-sub); margin-top: 2px; }
 
   .drawer-body { padding: 16px; flex: 1; overflow-y: auto; }
-  .drawer-item { display: flex; align-items: center; gap: 12px; padding: 13px 14px; border-radius: 12px; cursor: pointer; transition: background 0.15s; margin-bottom: 4px; font-size: 14px; font-weight: 500; color: var(--text-main); border: none; background: transparent; width: 100%; text-align: left; }
+
+  .drawer-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 14px; border-radius: 12px; cursor: pointer;
+    transition: background 0.15s; margin-bottom: 4px;
+    font-size: 14px; font-weight: 500; color: var(--text-main);
+    border: none; background: transparent; width: 100%; text-align: left;
+  }
   .drawer-item:hover { background: rgba(91,174,226,0.1); }
   .drawer-item-icon { font-size: 18px; width: 24px; text-align: center; flex-shrink: 0; }
   .drawer-item.danger { color: var(--error); }
   .drawer-item.danger:hover { background: rgba(248,113,113,0.1); }
+
   .drawer-divider { height: 0.5px; background: var(--border); margin: 8px 0; }
+
   .drawer-footer { padding: 16px; padding-bottom: calc(16px + var(--safe-bottom)); border-top: 0.5px solid var(--border); }
 
-  /* ══ PAINEL PERFIL ══ */
+  /* ══ PAINEL PERFIL (dentro do hub, substitui o grid) ══ */
   .panel { display: none; }
   .panel.active { display: block; }
+
   .panel-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
   .btn-back { background: var(--btn-sec-bg); border: 0.5px solid var(--border); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; transition: border-color 0.2s; flex-shrink: 0; }
   .btn-back:hover { border-color: var(--border-h); }
@@ -210,6 +236,7 @@
   .profile-avatar { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--teal)); display: flex; align-items: center; justify-content: center; font-family: 'Raleway', sans-serif; font-size: 18px; font-weight: 700; color: #ffffff; flex-shrink: 0; }
   .profile-name { font-family: 'Raleway', sans-serif; font-size: 16px; font-weight: 700; color: var(--text-main); }
   .profile-email { font-size: 12px; color: var(--text-sub); margin-top: 3px; }
+
   .profile-section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal); margin-bottom: 14px; }
 
   /* ══ TOOLS GRID ══ */
@@ -230,21 +257,13 @@
   }
   .tool-card:nth-child(1){animation-delay:.05s} .tool-card:nth-child(2){animation-delay:.10s}
   .tool-card:nth-child(3){animation-delay:.15s} .tool-card:nth-child(4){animation-delay:.20s}
-  .tool-card:nth-child(5){animation-delay:.25s} .tool-card:nth-child(6){animation-delay:.30s}
-  .tool-card:nth-child(7){animation-delay:.35s}
   .tool-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--blue),var(--teal)); opacity:0; transition:opacity .2s; }
   .tool-card:hover { background:rgba(91,174,226,0.08); border-color:var(--border-h); transform:translateY(-2px); }
   .tool-card:hover::before { opacity:1; }
 
   .tool-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:19px; margin-bottom:12px; }
   .tool-icon-img { background: transparent; padding: 0; width: 52px; height: 52px; border-radius: 14px; overflow: hidden; }
-  .tool-icon-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; transition: filter 0.3s ease; }
-
-  /* Modo escuro: inverte luminosidade e gira matiz pra preservar tons coloridos */
-  :root:not([data-theme="light"]) .tool-icon-img img {
-    filter: invert(0.92) hue-rotate(180deg) saturate(1.1) brightness(0.95) contrast(1.05);
-  }
-
+  .tool-icon-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; }
   .ic-blue{background:rgba(91,174,226,.15)} .ic-teal{background:rgba(96,192,191,.15)}
   .ic-soft{background:rgba(128,128,128,.15)} .ic-purple{background:rgba(160,120,220,.15)}
 
@@ -257,6 +276,7 @@
 
   @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
+  /* ══ RESPONSIVE ══ */
   @media (max-width: 640px) {
     .tools-grid { grid-template-columns: 1fr; }
     .clock-widget { display: none; }
@@ -310,8 +330,10 @@
 <!-- ══ HUB ══ -->
 <div id="screen-hub" class="screen">
 
+  <!-- DRAWER OVERLAY -->
   <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
 
+  <!-- DRAWER -->
   <div class="drawer" id="drawer">
     <div class="drawer-header">
       <div class="drawer-user">
@@ -354,6 +376,7 @@
         <div class="clock-date" id="clock-date">São José dos Campos</div>
       </div>
 
+      <!-- Desktop -->
       <div class="desktop-actions">
         <button class="btn-install" id="btn-install" onclick="installPWA()">⬇ Instalar app</button>
         <button class="btn-icon" onclick="toggleTheme()" title="Alternar tema" id="btn-theme-hub">🌙</button>
@@ -365,6 +388,7 @@
         <button class="btn-text" onclick="doLogout()">Sair</button>
       </div>
 
+      <!-- Mobile hamburguer -->
       <div class="user-badge">
         <div class="user-avatar" id="user-avatar-m">??</div>
       </div>
@@ -374,6 +398,7 @@
 
   <div class="hub-content">
 
+    <!-- PAINEL PRINCIPAL -->
     <div class="panel active" id="panel-main">
       <div class="section-eyebrow">Ferramentas Operacionais</div>
       <div class="section-heading">Painel CCO</div>
@@ -403,27 +428,10 @@
           <div class="tool-desc">Visualização e fechamento de horas voadas por período e aeronave</div>
           <div class="tool-foot"><span class="tool-tag">Relatório · Horas</span><span class="tool-arrow">→</span></div>
         </a>
-        <a class="tool-card" href="https://voesafe.cavok.in" target="_blank" rel="noopener">
-          <div class="tool-icon tool-icon-img"><img src="icons/cavok.png" alt="CAVOK"></div>
-          <div class="tool-name">CAVOK</div>
-          <div class="tool-desc">Sistema CAVOK para gestão de operações aéreas e exportação de dados de voo</div>
-          <div class="tool-foot"><span class="tool-tag">Sistema · Voos</span><span class="tool-arrow">→</span></div>
-        </a>
-        <a class="tool-card" href="https://drive.google.com/drive/u/2/folders/1Si31BF0xtaHhOO1l3Rk5H5fpqbofpKC8" target="_blank" rel="noopener">
-          <div class="tool-icon tool-icon-img"><img src="icons/safedocs.png" alt="SAFEDOCs"></div>
-          <div class="tool-name">SAFEDOCs</div>
-          <div class="tool-desc">Repositório de documentos institucionais, manuais e procedimentos operacionais</div>
-          <div class="tool-foot"><span class="tool-tag">Documentos · Drive</span><span class="tool-arrow">→</span></div>
-        </a>
-        <a class="tool-card" href="https://portaldoaluno.voesafe.com.br" target="_blank" rel="noopener">
-          <div class="tool-icon tool-icon-img"><img src="icons/portal-aluno.png" alt="Portal do Aluno"></div>
-          <div class="tool-name">Portal do Aluno</div>
-          <div class="tool-desc">Acesso aos registros, frequência e progresso acadêmico dos alunos</div>
-          <div class="tool-foot"><span class="tool-tag">Portal · Alunos</span><span class="tool-arrow">→</span></div>
-        </a>
       </div>
     </div>
 
+    <!-- PAINEL PERFIL -->
     <div class="panel" id="panel-profile">
       <div class="panel-header">
         <button class="btn-back" onclick="closeProfile()">←</button>
@@ -456,10 +464,15 @@
 </div>
 
 <script>
+// ══════════════════════════════════════════════
+// CONFIG — substitua APPS_SCRIPT_URL após o deploy
+// ══════════════════════════════════════════════
 const SHEET_CSV_URL    = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTgMwdICI_UAo5GTGKMi14GOmWj08di2ZSbMpZUfARTwctR6wurzUPlYQ3N41eVjczJlrU9YJNADyHc/pub?gid=0&single=true&output=csv';
 const APPS_SCRIPT_URL  = 'https://script.google.com/macros/s/AKfycbzbBjCKA89bFG4OSEpoGNeUZgAkwMxelS1k8yOJoHeknIo9GLpqilzvMsErF6OCPmG-lg/exec';
 
+// ══════════════════════════════════════════════
 // TEMA
+// ══════════════════════════════════════════════
 function getSystemTheme() { return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
 
 function applyTheme(theme) {
@@ -490,7 +503,9 @@ function toggleTheme() {
   });
 })();
 
+// ══════════════════════════════════════════════
 // PWA INSTALL
+// ══════════════════════════════════════════════
 let deferredPrompt = null;
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault(); deferredPrompt = e;
@@ -511,7 +526,9 @@ window.addEventListener('appinstalled', () => {
   if (btn) btn.style.display = 'none';
 });
 
+// ══════════════════════════════════════════════
 // DRAWER
+// ══════════════════════════════════════════════
 function openDrawer() {
   document.getElementById('drawer').classList.add('open');
   document.getElementById('drawer-overlay').classList.add('open');
@@ -523,7 +540,9 @@ function closeDrawer() {
   document.body.style.overflow = '';
 }
 
+// ══════════════════════════════════════════════
 // PERFIL
+// ══════════════════════════════════════════════
 function openProfile() {
   document.getElementById('panel-main').classList.remove('active');
   document.getElementById('panel-profile').classList.add('active');
@@ -576,7 +595,9 @@ async function salvarSenha() {
   btn.disabled = false; btn.textContent = 'Salvar nova senha';
 }
 
+// ══════════════════════════════════════════════
 // AUTH
+// ══════════════════════════════════════════════
 async function fetchUsers() {
   try {
     const res = await fetch(SHEET_CSV_URL + '&t=' + Date.now());
