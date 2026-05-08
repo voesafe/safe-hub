@@ -1,4 +1,4 @@
-const CACHE = 'safe-hub-v2';
+const CACHE = 'safe-hub-v3';
 const ASSETS = [
   '/',
   '/index.html',
@@ -22,8 +22,15 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  // Não cacheia o CSV do Sheets (sempre busca fresco)
-  if (e.request.url.includes('docs.google.com')) return;
+  // Nunca cacheia o CSV do Sheets nem o HTML principal
+  if (
+    e.request.url.includes('docs.google.com') ||
+    e.request.url.includes('script.google.com') ||
+    e.request.mode === 'navigate'
+  ) {
+    e.respondWith(fetch(e.request).catch(() => caches.match('/index.html')));
+    return;
+  }
 
   e.respondWith(
     caches.match(e.request).then(cached => cached || fetch(e.request))
