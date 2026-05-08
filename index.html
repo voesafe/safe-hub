@@ -146,7 +146,7 @@
   .login-footer span { font-size: 12px; color: var(--text-sub); }
 
   /* ══ HUB ══ */
-  #screen-hub { flex-direction: column; align-items: stretch; padding: 0 24px 100px; padding-top: 0; }
+  #screen-hub { flex-direction: column; align-items: stretch; padding: 0 24px 60px; padding-top: 0; }
 
   header {
     display: flex; align-items: center; justify-content: space-between;
@@ -172,60 +172,34 @@
   .clock-time { font-family: 'Raleway', sans-serif; font-size: 19px; font-weight: 700; line-height: 1; color: var(--text-main); }
   .clock-date { font-size: 11px; color: var(--text-sub); margin-top: 2px; }
 
-  /* HAMBURGUER — só mobile */
   .btn-hamburger { display: none; }
-
-  /* DESKTOP actions */
   .desktop-actions { display: flex; align-items: center; gap: 10px; }
 
   /* ══ DRAWER MOBILE ══ */
-  .drawer-overlay {
-    display: none; position: fixed; inset: 0; z-index: 100;
-    background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
-  }
+  .drawer-overlay { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
   .drawer-overlay.open { display: block; }
 
-  .drawer {
-    position: fixed; top: 0; right: -320px; bottom: 0; width: 300px; z-index: 101;
-    background: var(--drawer-bg); padding: 0;
-    transition: right 0.3s cubic-bezier(.4,0,.2,1);
-    display: flex; flex-direction: column;
-  }
+  .drawer { position: fixed; top: 0; right: -320px; bottom: 0; width: 300px; z-index: 101; background: var(--drawer-bg); padding: 0; transition: right 0.3s cubic-bezier(.4,0,.2,1); display: flex; flex-direction: column; }
   .drawer.open { right: 0; }
 
-  .drawer-header {
-    padding: calc(20px + var(--safe-top)) 20px 20px;
-    border-bottom: 0.5px solid var(--border);
-    display: flex; align-items: center; justify-content: space-between;
-  }
-
+  .drawer-header { padding: calc(20px + var(--safe-top)) 20px 20px; border-bottom: 0.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
   .drawer-user { display: flex; align-items: center; gap: 12px; }
   .drawer-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--teal)); display: flex; align-items: center; justify-content: center; font-family: 'Raleway', sans-serif; font-size: 16px; font-weight: 700; color: #ffffff; flex-shrink: 0; }
   .drawer-user-name { font-family: 'Raleway', sans-serif; font-size: 15px; font-weight: 700; color: var(--text-main); }
   .drawer-user-email { font-size: 11px; color: var(--text-sub); margin-top: 2px; }
 
   .drawer-body { padding: 16px; flex: 1; overflow-y: auto; }
-
-  .drawer-item {
-    display: flex; align-items: center; gap: 12px;
-    padding: 13px 14px; border-radius: 12px; cursor: pointer;
-    transition: background 0.15s; margin-bottom: 4px;
-    font-size: 14px; font-weight: 500; color: var(--text-main);
-    border: none; background: transparent; width: 100%; text-align: left;
-  }
+  .drawer-item { display: flex; align-items: center; gap: 12px; padding: 13px 14px; border-radius: 12px; cursor: pointer; transition: background 0.15s; margin-bottom: 4px; font-size: 14px; font-weight: 500; color: var(--text-main); border: none; background: transparent; width: 100%; text-align: left; }
   .drawer-item:hover { background: rgba(91,174,226,0.1); }
   .drawer-item-icon { font-size: 18px; width: 24px; text-align: center; flex-shrink: 0; }
   .drawer-item.danger { color: var(--error); }
   .drawer-item.danger:hover { background: rgba(248,113,113,0.1); }
-
   .drawer-divider { height: 0.5px; background: var(--border); margin: 8px 0; }
-
   .drawer-footer { padding: 16px; padding-bottom: calc(16px + var(--safe-bottom)); border-top: 0.5px solid var(--border); }
 
-  /* ══ PAINEL PERFIL (dentro do hub, substitui o grid) ══ */
+  /* ══ PAINEL PERFIL ══ */
   .panel { display: none; }
   .panel.active { display: block; }
-
   .panel-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
   .btn-back { background: var(--btn-sec-bg); border: 0.5px solid var(--border); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; transition: border-color 0.2s; flex-shrink: 0; }
   .btn-back:hover { border-color: var(--border-h); }
@@ -236,7 +210,6 @@
   .profile-avatar { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--teal)); display: flex; align-items: center; justify-content: center; font-family: 'Raleway', sans-serif; font-size: 18px; font-weight: 700; color: #ffffff; flex-shrink: 0; }
   .profile-name { font-family: 'Raleway', sans-serif; font-size: 16px; font-weight: 700; color: var(--text-main); }
   .profile-email { font-size: 12px; color: var(--text-sub); margin-top: 3px; }
-
   .profile-section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal); margin-bottom: 14px; }
 
   /* ══ TOOLS GRID ══ */
@@ -257,13 +230,21 @@
   }
   .tool-card:nth-child(1){animation-delay:.05s} .tool-card:nth-child(2){animation-delay:.10s}
   .tool-card:nth-child(3){animation-delay:.15s} .tool-card:nth-child(4){animation-delay:.20s}
+  .tool-card:nth-child(5){animation-delay:.25s} .tool-card:nth-child(6){animation-delay:.30s}
+  .tool-card:nth-child(7){animation-delay:.35s}
   .tool-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--blue),var(--teal)); opacity:0; transition:opacity .2s; }
   .tool-card:hover { background:rgba(91,174,226,0.08); border-color:var(--border-h); transform:translateY(-2px); }
   .tool-card:hover::before { opacity:1; }
 
   .tool-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:19px; margin-bottom:12px; }
   .tool-icon-img { background: transparent; padding: 0; width: 52px; height: 52px; border-radius: 14px; overflow: hidden; }
-  .tool-icon-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; }
+  .tool-icon-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; transition: filter 0.3s ease; }
+
+  /* Modo escuro: inverte luminosidade e gira matiz pra preservar tons coloridos */
+  :root:not([data-theme="light"]) .tool-icon-img img {
+    filter: invert(0.92) hue-rotate(180deg) saturate(1.1) brightness(0.95) contrast(1.05);
+  }
+
   .ic-blue{background:rgba(91,174,226,.15)} .ic-teal{background:rgba(96,192,191,.15)}
   .ic-soft{background:rgba(128,128,128,.15)} .ic-purple{background:rgba(160,120,220,.15)}
 
@@ -276,146 +257,6 @@
 
   @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
-  /* ══ DOCK ══ */
-  .app-dock-container {
-    margin: 40px auto 30px;
-    width: max-content;
-    z-index: 100;
-    padding: 10px;
-    border-radius: 24px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    display: flex;
-    gap: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: fadeUp 0.5s ease-out both;
-  }
-
-  [data-theme="light"] .app-dock-container {
-    background: rgba(255, 255, 255, 0.5);
-    border-color: rgba(29, 41, 81, 0.08);
-    box-shadow: 0 10px 30px rgba(29, 41, 81, 0.1);
-  }
-
-  /* Estilos Dinâmicos do Ícone CAVOK */
-  .cavok-bg { stop-color: #2D5A9E; transition: stop-color 0.3s; }
-  .cavok-bg-bottom { stop-color: #1A3A6E; transition: stop-color 0.3s; }
-  .cavok-sun-top { stop-color: #FFD740; transition: stop-color 0.3s; }
-  .cavok-sun-bottom { stop-color: #FFB300; transition: stop-color 0.3s; }
-  .cavok-plane { fill: #0D2548; transition: fill 0.3s; }
-
-  [data-theme="light"] .cavok-bg { stop-color: #7BB0FF; }
-  [data-theme="light"] .cavok-bg-bottom { stop-color: #4A90E2; }
-  [data-theme="light"] .cavok-sun-top { stop-color: #FFF176; }
-  [data-theme="light"] .cavok-sun-bottom { stop-color: #FDD835; }
-  [data-theme="light"] .cavok-plane { fill: #1D2951; }
-
-  /* Estilos Dinâmicos do Ícone SAFEDOCs */
-  .safedocs-bg-1 { stop-color: #4285F4; transition: stop-color 0.3s; }
-  .safedocs-bg-2 { stop-color: #34A853; transition: stop-color 0.3s; }
-  .safedocs-bg-3 { stop-color: #FBBC04; transition: stop-color 0.3s; }
-  .safedocs-doc { fill: #ffffff; transition: fill 0.3s; }
-  
-  [data-theme="light"] .safedocs-bg-1 { stop-color: #A0C3FF; } /* Azul bem claro */
-  [data-theme="light"] .safedocs-bg-2 { stop-color: #A2E5B5; } /* Verde pastel */
-  [data-theme="light"] .safedocs-bg-3 { stop-color: #FFECB3; } /* Amarelo bem suave */
-  [data-theme="light"] .safedocs-doc { fill: #ffffff; }
-
-  /* Estilos Dinâmicos do Ícone Portal do Aluno */
-  .portal-bg-top { stop-color: #00D2FF; transition: stop-color 0.3s; }
-  .portal-bg-bottom { stop-color: #3A7BD5; transition: stop-color 0.3s; }
-  .portal-figure { fill: #ffffff; transition: fill 0.3s; }
-  .portal-book { fill: #ffffff; opacity: 0.9; transition: opacity 0.3s; }
-
-  [data-theme="light"] .portal-bg-top { stop-color: #A1FFCE; }
-  [data-theme="light"] .portal-bg-bottom { stop-color: #FAFFD1; }
-  [data-theme="light"] .portal-figure { fill: #1D2951; }
-  [data-theme="light"] .portal-book { fill: #1D2951; opacity: 0.8; }
-
-  .dock-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    text-decoration: none;
-    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    width: 60px; /* Largura fixa para alinhar o texto */
-  }
-
-  .dock-icon-wrapper {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-
-  .dock-label {
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--text-main);
-    text-align: center;
-    opacity: 0.9;
-    letter-spacing: 0.02em;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .dock-item:hover {
-    transform: scale(1.1) translateY(-5px);
-  }
-
-  .dock-item svg, .dock-item img {
-    width: 100%;
-    height: 100%;
-    border-radius: 11px;
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
-  }
-
-  .dock-tooltip {
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-10px);
-    background: rgba(0,0,0,0.75);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 8px;
-    font-size: 11px;
-    font-weight: 600;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s, transform 0.2s;
-    backdrop-filter: blur(4px);
-  }
-
-  .dock-item:hover .dock-tooltip {
-    opacity: 1;
-    transform: translateX(-50%) translateY(-15px);
-  }
-
-  @media (max-width: 640px) {
-    .app-dock-container {
-      margin: 30px auto 10px;
-      padding: 6px;
-      gap: 8px;
-      border-radius: 18px;
-    }
-    .dock-item {
-      width: 42px;
-      height: 42px;
-    }
-    .dock-tooltip { display: none; } /* Esconde tooltip no mobile */
-  }
-
-  /* ══ RESPONSIVE ══ */
   @media (max-width: 640px) {
     .tools-grid { grid-template-columns: 1fr; }
     .clock-widget { display: none; }
@@ -469,10 +310,8 @@
 <!-- ══ HUB ══ -->
 <div id="screen-hub" class="screen">
 
-  <!-- DRAWER OVERLAY -->
   <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
 
-  <!-- DRAWER -->
   <div class="drawer" id="drawer">
     <div class="drawer-header">
       <div class="drawer-user">
@@ -515,7 +354,6 @@
         <div class="clock-date" id="clock-date">São José dos Campos</div>
       </div>
 
-      <!-- Desktop -->
       <div class="desktop-actions">
         <button class="btn-install" id="btn-install" onclick="installPWA()">⬇ Instalar app</button>
         <button class="btn-icon" onclick="toggleTheme()" title="Alternar tema" id="btn-theme-hub">🌙</button>
@@ -527,7 +365,6 @@
         <button class="btn-text" onclick="doLogout()">Sair</button>
       </div>
 
-      <!-- Mobile hamburguer -->
       <div class="user-badge">
         <div class="user-avatar" id="user-avatar-m">??</div>
       </div>
@@ -537,10 +374,9 @@
 
   <div class="hub-content">
 
-    <!-- PAINEL PRINCIPAL -->
     <div class="panel active" id="panel-main">
       <div class="section-eyebrow">Ferramentas Operacionais</div>
-      <div class="section-heading">Painel HUB SAFE</div>
+      <div class="section-heading">Painel CCO</div>
       <p class="section-sub">Acesso centralizado a todas as ferramentas da operação SAFE</p>
       <div class="tools-grid">
         <a class="tool-card" href="https://cco.voesafe.com.br" target="_blank" rel="noopener">
@@ -567,10 +403,27 @@
           <div class="tool-desc">Visualização e fechamento de horas voadas por período e aeronave</div>
           <div class="tool-foot"><span class="tool-tag">Relatório · Horas</span><span class="tool-arrow">→</span></div>
         </a>
+        <a class="tool-card" href="https://voesafe.cavok.in" target="_blank" rel="noopener">
+          <div class="tool-icon tool-icon-img"><img src="icons/cavok.png" alt="CAVOK"></div>
+          <div class="tool-name">CAVOK</div>
+          <div class="tool-desc">Sistema CAVOK para gestão de operações aéreas e exportação de dados de voo</div>
+          <div class="tool-foot"><span class="tool-tag">Sistema · Voos</span><span class="tool-arrow">→</span></div>
+        </a>
+        <a class="tool-card" href="https://drive.google.com/drive/u/2/folders/1Si31BF0xtaHhOO1l3Rk5H5fpqbofpKC8" target="_blank" rel="noopener">
+          <div class="tool-icon tool-icon-img"><img src="icons/safedocs.png" alt="SAFEDOCs"></div>
+          <div class="tool-name">SAFEDOCs</div>
+          <div class="tool-desc">Repositório de documentos institucionais, manuais e procedimentos operacionais</div>
+          <div class="tool-foot"><span class="tool-tag">Documentos · Drive</span><span class="tool-arrow">→</span></div>
+        </a>
+        <a class="tool-card" href="https://portaldoaluno.voesafe.com.br" target="_blank" rel="noopener">
+          <div class="tool-icon tool-icon-img"><img src="icons/portal-aluno.png" alt="Portal do Aluno"></div>
+          <div class="tool-name">Portal do Aluno</div>
+          <div class="tool-desc">Acesso aos registros, frequência e progresso acadêmico dos alunos</div>
+          <div class="tool-foot"><span class="tool-tag">Portal · Alunos</span><span class="tool-arrow">→</span></div>
+        </a>
       </div>
     </div>
 
-    <!-- PAINEL PERFIL -->
     <div class="panel" id="panel-profile">
       <div class="panel-header">
         <button class="btn-back" onclick="closeProfile()">←</button>
@@ -600,136 +453,13 @@
     </div>
 
   </div>
-
-  <!-- DOCK FLUTUANTE ESTILO APPLE -->
-  <nav class="app-dock-container">
-    <!-- CAVOK -->
-    <a href="https://voesafe.cavok.in" target="_blank" class="dock-item" title="Plataforma CAVOK">
-      <div class="dock-icon-wrapper">
-        <svg viewBox="0 0 100 100">
-          <defs>
-            <linearGradient id="grad-bg-cavok" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" class="cavok-bg" />
-              <stop offset="100%" class="cavok-bg-bottom" />
-            </linearGradient>
-            <linearGradient id="grad-sun" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" class="cavok-sun-top" />
-              <stop offset="100%" class="cavok-sun-bottom" />
-            </linearGradient>
-            <filter id="shadow-cavok" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" />
-              <feOffset dx="0" dy="2" result="offsetblur" />
-              <feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer>
-              <feMerge><feMergeNode /><feMergeNode in="SourceGraphic" /></feMerge>
-            </filter>
-          </defs>
-          <rect width="100" height="100" rx="22" fill="url(#grad-bg-cavok)" />
-          <rect width="100" height="30" rx="22" fill="white" opacity="0.1" />
-          <g filter="url(#shadow-cavok)">
-            <path d="M50 20 A30 30 0 0 1 78 35 L22 35 A30 30 0 0 1 50 20 Z" fill="url(#grad-sun)" />
-            <path d="M20 40 H80 V50 H20 Z" fill="url(#grad-sun)" />
-            <path d="M22 55 H78 V65 H22 Z" fill="url(#grad-sun)" />
-            <path d="M50 80 A30 30 0 0 0 75 70 L25 70 A30 30 0 0 0 50 80 Z" fill="url(#grad-sun)" />
-          </g>
-          <g filter="url(#shadow-cavok)">
-            <path d="M30 65 Q45 60 75 45 C85 40 85 35 75 35 L40 50 Q30 55 35 65" class="cavok-plane" />
-            <path d="M50 50 L75 48 L78 52 L55 55 Z" class="cavok-plane" />
-            <path d="M35 55 L25 45 L30 40 L40 50 Z" class="cavok-plane" />
-            <path d="M70 42 C75 40 78 38 72 38" stroke="white" stroke-width="0.5" fill="none" opacity="0.4" />
-          </g>
-        </svg>
-      </div>
-      <span class="dock-label">CAVOK</span>
-    </a>
-
-    <!-- SAFEDOCs -->
-    <a href="https://drive.google.com/drive/u/2/folders/1Si31BF0xtaHhOO1l3Rk5H5fpqbofpKC8" target="_blank" class="dock-item" title="SAFEDOCs">
-      <div class="dock-icon-wrapper">
-        <svg viewBox="0 0 100 100">
-          <defs>
-            <linearGradient id="grad-bg-docs" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" class="safedocs-bg-1" />
-              <stop offset="50%" class="safedocs-bg-2" />
-              <stop offset="100%" class="safedocs-bg-3" />
-            </linearGradient>
-            <filter id="shadow-docs" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" />
-              <feOffset dx="0" dy="2" />
-              <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
-              <feMerge><feMergeNode /><feMergeNode in="SourceGraphic" /></feMerge>
-            </filter>
-          </defs>
-          <rect width="100" height="100" rx="22" fill="url(#grad-bg-docs)" />
-          <rect width="100" height="40" rx="22" fill="white" opacity="0.1" />
-
-          <!-- Triângulo Google Drive (Estilizado) -->
-          <g filter="url(#shadow-docs)" opacity="0.9">
-             <path d="M50 20 L85 75 L15 75 Z" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" />
-             <path d="M50 20 L85 75 L15 75 Z" fill="none" stroke="black" stroke-width="1" opacity="0.1" />
-          </g>
-
-          <!-- Documento Overlay -->
-          <g filter="url(#shadow-docs)">
-            <rect x="55" y="50" width="30" height="38" rx="4" class="safedocs-doc" />
-            <path d="M75 50 L85 60 L75 60 Z" fill="rgba(0,0,0,0.1)" /> <!-- Dobra do papel -->
-            <!-- Linhas do documento -->
-            <rect x="60" y="65" width="20" height="2" rx="1" fill="#4285F4" opacity="0.6" />
-            <rect x="60" y="72" width="20" height="2" rx="1" fill="#34A853" opacity="0.6" />
-            <rect x="60" y="79" width="12" height="2" rx="1" fill="#FBBC04" opacity="0.6" />
-          </g>
-        </svg>
-      </div>
-      <span class="dock-label">SAFEDOCs</span>
-    </a>
-
-    <!-- Portal do Aluno -->
-    <a href="https://portaldoaluno.voesafe.com.br" target="_blank" class="dock-item" title="Portal do Aluno">
-      <div class="dock-icon-wrapper">
-        <svg viewBox="0 0 100 100">
-          <defs>
-            <linearGradient id="grad-bg-portal" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" class="portal-bg-top" />
-              <stop offset="100%" class="portal-bg-bottom" />
-            </linearGradient>
-            <filter id="shadow-portal" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" />
-              <feOffset dx="0" dy="2" />
-              <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
-              <feMerge><feMergeNode /><feMergeNode in="SourceGraphic" /></feMerge>
-            </filter>
-          </defs>
-          <rect width="100" height="100" rx="22" fill="url(#grad-bg-portal)" />
-          <rect width="100" height="30" rx="22" fill="white" opacity="0.1" />
-
-          <!-- Pessoa (Silhueta) -->
-          <g filter="url(#shadow-portal)">
-            <circle cx="50" cy="35" r="12" class="portal-figure" />
-            <path d="M50 50 Q30 50 25 70 L75 70 Q70 50 50 50 Z" class="portal-figure" />
-          </g>
-
-          <!-- Livro Aberto -->
-          <g filter="url(#shadow-portal)">
-            <path d="M50 75 L20 62 L20 75 L50 88 L80 75 L80 62 Z" class="portal-book" />
-            <path d="M50 75 L50 88" stroke="rgba(0,0,0,0.1)" stroke-width="1" /> <!-- Divisão do livro -->
-          </g>
-        </svg>
-      </div>
-      <span class="dock-label">Portal Aluno</span>
-    </a>
-  </nav>
-
 </div>
 
 <script>
-// ══════════════════════════════════════════════
-// CONFIG — substitua APPS_SCRIPT_URL após o deploy
-// ══════════════════════════════════════════════
 const SHEET_CSV_URL    = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTgMwdICI_UAo5GTGKMi14GOmWj08di2ZSbMpZUfARTwctR6wurzUPlYQ3N41eVjczJlrU9YJNADyHc/pub?gid=0&single=true&output=csv';
 const APPS_SCRIPT_URL  = 'https://script.google.com/macros/s/AKfycbzbBjCKA89bFG4OSEpoGNeUZgAkwMxelS1k8yOJoHeknIo9GLpqilzvMsErF6OCPmG-lg/exec';
 
-// ══════════════════════════════════════════════
 // TEMA
-// ══════════════════════════════════════════════
 function getSystemTheme() { return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
 
 function applyTheme(theme) {
@@ -760,9 +490,7 @@ function toggleTheme() {
   });
 })();
 
-// ══════════════════════════════════════════════
 // PWA INSTALL
-// ══════════════════════════════════════════════
 let deferredPrompt = null;
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault(); deferredPrompt = e;
@@ -783,9 +511,7 @@ window.addEventListener('appinstalled', () => {
   if (btn) btn.style.display = 'none';
 });
 
-// ══════════════════════════════════════════════
 // DRAWER
-// ══════════════════════════════════════════════
 function openDrawer() {
   document.getElementById('drawer').classList.add('open');
   document.getElementById('drawer-overlay').classList.add('open');
@@ -797,9 +523,7 @@ function closeDrawer() {
   document.body.style.overflow = '';
 }
 
-// ══════════════════════════════════════════════
 // PERFIL
-// ══════════════════════════════════════════════
 function openProfile() {
   document.getElementById('panel-main').classList.remove('active');
   document.getElementById('panel-profile').classList.add('active');
@@ -852,9 +576,7 @@ async function salvarSenha() {
   btn.disabled = false; btn.textContent = 'Salvar nova senha';
 }
 
-// ══════════════════════════════════════════════
 // AUTH
-// ══════════════════════════════════════════════
 async function fetchUsers() {
   try {
     const res = await fetch(SHEET_CSV_URL + '&t=' + Date.now());
