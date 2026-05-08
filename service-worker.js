@@ -1,4 +1,4 @@
-const CACHE = 'safe-hub-v1';
+const CACHE = 'safe-hub-v2';
 const ASSETS = [
   '/',
   '/index.html',
