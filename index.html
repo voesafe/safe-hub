@@ -146,7 +146,7 @@
   .login-footer span { font-size: 12px; color: var(--text-sub); }
 
   /* ══ HUB ══ */
-  #screen-hub { flex-direction: column; align-items: stretch; padding: 0 24px 60px; padding-top: 0; }
+  #screen-hub { flex-direction: column; align-items: stretch; padding: 0 24px 100px; padding-top: 0; }
 
   header {
     display: flex; align-items: center; justify-content: space-between;
@@ -275,6 +275,145 @@
   .tool-card:hover .tool-arrow { color:var(--blue); transform:translateX(4px); }
 
   @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ══ DOCK ══ */
+  .app-dock-container {
+    margin: 40px auto 30px;
+    width: max-content;
+    z-index: 100;
+    padding: 10px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    gap: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeUp 0.5s ease-out both;
+  }
+
+  [data-theme="light"] .app-dock-container {
+    background: rgba(255, 255, 255, 0.5);
+    border-color: rgba(29, 41, 81, 0.08);
+    box-shadow: 0 10px 30px rgba(29, 41, 81, 0.1);
+  }
+
+  /* Estilos Dinâmicos do Ícone CAVOK */
+  .cavok-bg { stop-color: #2D5A9E; transition: stop-color 0.3s; }
+  .cavok-bg-bottom { stop-color: #1A3A6E; transition: stop-color 0.3s; }
+  .cavok-sun-top { stop-color: #FFD740; transition: stop-color 0.3s; }
+  .cavok-sun-bottom { stop-color: #FFB300; transition: stop-color 0.3s; }
+  .cavok-plane { fill: #0D2548; transition: fill 0.3s; }
+
+  [data-theme="light"] .cavok-bg { stop-color: #7BB0FF; }
+  [data-theme="light"] .cavok-bg-bottom { stop-color: #4A90E2; }
+  [data-theme="light"] .cavok-sun-top { stop-color: #FFF176; }
+  [data-theme="light"] .cavok-sun-bottom { stop-color: #FDD835; }
+  [data-theme="light"] .cavok-plane { fill: #1D2951; }
+
+  /* Estilos Dinâmicos do Ícone SAFEDOCs */
+  .safedocs-bg-1 { stop-color: #4285F4; transition: stop-color 0.3s; }
+  .safedocs-bg-2 { stop-color: #34A853; transition: stop-color 0.3s; }
+  .safedocs-bg-3 { stop-color: #FBBC04; transition: stop-color 0.3s; }
+  .safedocs-doc { fill: #ffffff; transition: fill 0.3s; }
+  
+  [data-theme="light"] .safedocs-bg-1 { stop-color: #A0C3FF; } /* Azul bem claro */
+  [data-theme="light"] .safedocs-bg-2 { stop-color: #A2E5B5; } /* Verde pastel */
+  [data-theme="light"] .safedocs-bg-3 { stop-color: #FFECB3; } /* Amarelo bem suave */
+  [data-theme="light"] .safedocs-doc { fill: #ffffff; }
+
+  /* Estilos Dinâmicos do Ícone Portal do Aluno */
+  .portal-bg-top { stop-color: #00D2FF; transition: stop-color 0.3s; }
+  .portal-bg-bottom { stop-color: #3A7BD5; transition: stop-color 0.3s; }
+  .portal-figure { fill: #ffffff; transition: fill 0.3s; }
+  .portal-book { fill: #ffffff; opacity: 0.9; transition: opacity 0.3s; }
+
+  [data-theme="light"] .portal-bg-top { stop-color: #A1FFCE; }
+  [data-theme="light"] .portal-bg-bottom { stop-color: #FAFFD1; }
+  [data-theme="light"] .portal-figure { fill: #1D2951; }
+  [data-theme="light"] .portal-book { fill: #1D2951; opacity: 0.8; }
+
+  .dock-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    width: 60px; /* Largura fixa para alinhar o texto */
+  }
+
+  .dock-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .dock-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-main);
+    text-align: center;
+    opacity: 0.9;
+    letter-spacing: 0.02em;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .dock-item:hover {
+    transform: scale(1.1) translateY(-5px);
+  }
+
+  .dock-item svg, .dock-item img {
+    width: 100%;
+    height: 100%;
+    border-radius: 11px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+  }
+
+  .dock-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    background: rgba(0,0,0,0.75);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+    backdrop-filter: blur(4px);
+  }
+
+  .dock-item:hover .dock-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-15px);
+  }
+
+  @media (max-width: 640px) {
+    .app-dock-container {
+      margin: 30px auto 10px;
+      padding: 6px;
+      gap: 8px;
+      border-radius: 18px;
+    }
+    .dock-item {
+      width: 42px;
+      height: 42px;
+    }
+    .dock-tooltip { display: none; } /* Esconde tooltip no mobile */
+  }
 
   /* ══ RESPONSIVE ══ */
   @media (max-width: 640px) {
@@ -461,6 +600,124 @@
     </div>
 
   </div>
+
+  <!-- DOCK FLUTUANTE ESTILO APPLE -->
+  <nav class="app-dock-container">
+    <!-- CAVOK -->
+    <a href="https://voesafe.cavok.in" target="_blank" class="dock-item" title="Plataforma CAVOK">
+      <div class="dock-icon-wrapper">
+        <svg viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="grad-bg-cavok" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" class="cavok-bg" />
+              <stop offset="100%" class="cavok-bg-bottom" />
+            </linearGradient>
+            <linearGradient id="grad-sun" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" class="cavok-sun-top" />
+              <stop offset="100%" class="cavok-sun-bottom" />
+            </linearGradient>
+            <filter id="shadow-cavok" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" />
+              <feOffset dx="0" dy="2" result="offsetblur" />
+              <feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer>
+              <feMerge><feMergeNode /><feMergeNode in="SourceGraphic" /></feMerge>
+            </filter>
+          </defs>
+          <rect width="100" height="100" rx="22" fill="url(#grad-bg-cavok)" />
+          <rect width="100" height="30" rx="22" fill="white" opacity="0.1" />
+          <g filter="url(#shadow-cavok)">
+            <path d="M50 20 A30 30 0 0 1 78 35 L22 35 A30 30 0 0 1 50 20 Z" fill="url(#grad-sun)" />
+            <path d="M20 40 H80 V50 H20 Z" fill="url(#grad-sun)" />
+            <path d="M22 55 H78 V65 H22 Z" fill="url(#grad-sun)" />
+            <path d="M50 80 A30 30 0 0 0 75 70 L25 70 A30 30 0 0 0 50 80 Z" fill="url(#grad-sun)" />
+          </g>
+          <g filter="url(#shadow-cavok)">
+            <path d="M30 65 Q45 60 75 45 C85 40 85 35 75 35 L40 50 Q30 55 35 65" class="cavok-plane" />
+            <path d="M50 50 L75 48 L78 52 L55 55 Z" class="cavok-plane" />
+            <path d="M35 55 L25 45 L30 40 L40 50 Z" class="cavok-plane" />
+            <path d="M70 42 C75 40 78 38 72 38" stroke="white" stroke-width="0.5" fill="none" opacity="0.4" />
+          </g>
+        </svg>
+      </div>
+      <span class="dock-label">CAVOK</span>
+    </a>
+
+    <!-- SAFEDOCs -->
+    <a href="https://drive.google.com/drive/u/2/folders/1Si31BF0xtaHhOO1l3Rk5H5fpqbofpKC8" target="_blank" class="dock-item" title="SAFEDOCs">
+      <div class="dock-icon-wrapper">
+        <svg viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="grad-bg-docs" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" class="safedocs-bg-1" />
+              <stop offset="50%" class="safedocs-bg-2" />
+              <stop offset="100%" class="safedocs-bg-3" />
+            </linearGradient>
+            <filter id="shadow-docs" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" />
+              <feOffset dx="0" dy="2" />
+              <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+              <feMerge><feMergeNode /><feMergeNode in="SourceGraphic" /></feMerge>
+            </filter>
+          </defs>
+          <rect width="100" height="100" rx="22" fill="url(#grad-bg-docs)" />
+          <rect width="100" height="40" rx="22" fill="white" opacity="0.1" />
+
+          <!-- Triângulo Google Drive (Estilizado) -->
+          <g filter="url(#shadow-docs)" opacity="0.9">
+             <path d="M50 20 L85 75 L15 75 Z" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" />
+             <path d="M50 20 L85 75 L15 75 Z" fill="none" stroke="black" stroke-width="1" opacity="0.1" />
+          </g>
+
+          <!-- Documento Overlay -->
+          <g filter="url(#shadow-docs)">
+            <rect x="55" y="50" width="30" height="38" rx="4" class="safedocs-doc" />
+            <path d="M75 50 L85 60 L75 60 Z" fill="rgba(0,0,0,0.1)" /> <!-- Dobra do papel -->
+            <!-- Linhas do documento -->
+            <rect x="60" y="65" width="20" height="2" rx="1" fill="#4285F4" opacity="0.6" />
+            <rect x="60" y="72" width="20" height="2" rx="1" fill="#34A853" opacity="0.6" />
+            <rect x="60" y="79" width="12" height="2" rx="1" fill="#FBBC04" opacity="0.6" />
+          </g>
+        </svg>
+      </div>
+      <span class="dock-label">SAFEDOCs</span>
+    </a>
+
+    <!-- Portal do Aluno -->
+    <a href="https://portaldoaluno.voesafe.com.br" target="_blank" class="dock-item" title="Portal do Aluno">
+      <div class="dock-icon-wrapper">
+        <svg viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="grad-bg-portal" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" class="portal-bg-top" />
+              <stop offset="100%" class="portal-bg-bottom" />
+            </linearGradient>
+            <filter id="shadow-portal" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" />
+              <feOffset dx="0" dy="2" />
+              <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+              <feMerge><feMergeNode /><feMergeNode in="SourceGraphic" /></feMerge>
+            </filter>
+          </defs>
+          <rect width="100" height="100" rx="22" fill="url(#grad-bg-portal)" />
+          <rect width="100" height="30" rx="22" fill="white" opacity="0.1" />
+
+          <!-- Pessoa (Silhueta) -->
+          <g filter="url(#shadow-portal)">
+            <circle cx="50" cy="35" r="12" class="portal-figure" />
+            <path d="M50 50 Q30 50 25 70 L75 70 Q70 50 50 50 Z" class="portal-figure" />
+          </g>
+
+          <!-- Livro Aberto -->
+          <g filter="url(#shadow-portal)">
+            <path d="M50 75 L20 62 L20 75 L50 88 L80 75 L80 62 Z" class="portal-book" />
+            <path d="M50 75 L50 88" stroke="rgba(0,0,0,0.1)" stroke-width="1" /> <!-- Divisão do livro -->
+          </g>
+        </svg>
+      </div>
+      <span class="dock-label">Portal Aluno</span>
+    </a>
+  </nav>
+
 </div>
 
 <script>
