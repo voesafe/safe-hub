@@ -262,6 +262,8 @@
   .tool-card:hover::before { opacity:1; }
 
   .tool-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:19px; margin-bottom:12px; }
+  .tool-icon-img { background: transparent; padding: 0; width: 52px; height: 52px; border-radius: 14px; overflow: hidden; }
+  .tool-icon-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; }
   .ic-blue{background:rgba(91,174,226,.15)} .ic-teal{background:rgba(96,192,191,.15)}
   .ic-soft{background:rgba(128,128,128,.15)} .ic-purple{background:rgba(160,120,220,.15)}
 
@@ -403,25 +405,25 @@
       <p class="section-sub">Acesso centralizado a todas as ferramentas da operação SAFE</p>
       <div class="tools-grid">
         <a class="tool-card" href="https://cco.voesafe.com.br" target="_blank" rel="noopener">
-          <div class="tool-icon ic-blue">🤖</div>
+          <div class="tool-icon tool-icon-img"><img src="icons/cco-inteligente.png" alt="CCO Inteligente"></div>
           <div class="tool-name">CCO Inteligente</div>
           <div class="tool-desc">Assistente operacional com IA para suporte ao Centro de Controle de Operações</div>
           <div class="tool-foot"><span class="tool-tag">IA · CCO</span><span class="tool-arrow">→</span></div>
         </a>
         <a class="tool-card" href="https://cco-safe-amber.vercel.app/" target="_blank" rel="noopener">
-          <div class="tool-icon ic-teal">📅</div>
+          <div class="tool-icon tool-icon-img"><img src="icons/escala-cco.png" alt="Escala CCO"></div>
           <div class="tool-name">Escala CCO</div>
           <div class="tool-desc">Gerenciamento de escalas e turnos dos colaboradores do CCO</div>
           <div class="tool-foot"><span class="tool-tag">Escala · Staff</span><span class="tool-arrow">→</span></div>
         </a>
         <a class="tool-card" href="https://pavescala.voesafe.com.br/" target="_blank" rel="noopener">
-          <div class="tool-icon ic-soft">✈️</div>
+          <div class="tool-icon tool-icon-img"><img src="icons/escala-pav.png" alt="Escala PAV"></div>
           <div class="tool-name">Escala PAV de Base</div>
           <div class="tool-desc">Controle da programação de aeronaves e instrutores por base operacional</div>
           <div class="tool-foot"><span class="tool-tag">Voo · PAV</span><span class="tool-arrow">→</span></div>
         </a>
         <a class="tool-card" href="https://voesafe.github.io/cco-dashboard-fechamento-horas/" target="_blank" rel="noopener">
-          <div class="tool-icon ic-purple">📊</div>
+          <div class="tool-icon tool-icon-img"><img src="icons/dashboard.png" alt="Dashboard"></div>
           <div class="tool-name">Dashboard Fechamento</div>
           <div class="tool-desc">Visualização e fechamento de horas voadas por período e aeronave</div>
           <div class="tool-foot"><span class="tool-tag">Relatório · Horas</span><span class="tool-arrow">→</span></div>
